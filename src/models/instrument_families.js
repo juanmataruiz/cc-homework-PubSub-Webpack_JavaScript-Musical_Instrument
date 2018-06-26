@@ -1,9 +1,11 @@
+const PubSub = require('../helpers/pub_sub.js');
+
 const InstrumentFamilies = function() {
   this.instrumentFamilies = [
     {
       name: 'Brass',
-      description: 'A brass instrument is a musical instrument that produces sound by sympathetic vibration of air in a tubular resonator in sympathy with the vibration of the player\'s lips',
-      instruments: ['trumpet', 'trombone', 'horn', 'tuba', 'bugle']
+      description: 'A brass instrument is a musical instrument that produces sound by sympathetic vibration of air in a tubular resonator in sympathy with the vibration of the player\'s lips.',
+      instruments: ['trumpet', ' trombone', ' horn', ' tuba', ' bugle']
     },
     {
       name: 'Strings',
@@ -26,6 +28,20 @@ const InstrumentFamilies = function() {
       instruments: ['piano', 'organ', 'electronic keyboard', 'synthesizer']
     }
   ];
+};
+
+InstrumentFamilies.prototype.bindEvents = function () {
+  PubSub.publish('SelectInstrumentFamily:all-description', this.instrumentFamilies);
+
+  PubSub.subscribe('SelectInstrumentFamily:change', (event) => {
+    const selectedIndex = event.detail;
+    this.publishInstrumentDetail(selectedIndex);
+  });
+};
+
+InstrumentFamilies.prototype.publishInstrumentDetail = function(instrumentIndex){
+  const selectedInstrument = this.instrumentFamilies[instrumentIndex];
+  PubSub.publish('SelectInstrumentFamily:all-description', selectedInstrument);
 };
 
 module.exports = InstrumentFamilies;
