@@ -5,7 +5,7 @@ const InstrumentFamilyInfo = function (container) {
 };
 
 InstrumentFamilyInfo.prototype.bindEvents = function () {
-  PubSub.subscribe('SelectInstrumentFamily:all-description', (event) => {
+  PubSub.subscribe('SelectInstrumentFamily:selected-description', (event) => {
     const instrument = event.detail;
     this.render(instrument);
   });

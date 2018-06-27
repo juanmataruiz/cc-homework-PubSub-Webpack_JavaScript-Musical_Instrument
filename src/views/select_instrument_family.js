@@ -17,6 +17,7 @@ SelectInstrumentFamily.prototype.bindEvents = function () {
 };
 
 SelectInstrumentFamily.prototype.populate = function (instrumentData) {
+
   instrumentData.forEach((instrument, index) => {
     const option = document.createElement('option');
     option.textContent = instrument.name;
